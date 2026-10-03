@@ -1,0 +1,15 @@
+{
+  "name": "indian-army-logistics",
+  "version": "0.1.0",
+  "description": "AI-powered predictive logistics and forward supply chain management system",
+  "type": "module",
+  "scripts": {
+    "test:supabase": "node scripts/test-supabase.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
