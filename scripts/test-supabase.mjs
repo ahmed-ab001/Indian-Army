@@ -28,12 +28,16 @@ function loadEnvFile(envPath) {
   return env;
 }
 
-// Load .env.local and merge into process.env
-const envLocal = loadEnvFile(path.join(rootDir, '.env.local'));
-for (const [k, v] of Object.entries(envLocal)) {
+// Load .env and .env.local and merge into process.env
+const envFile = loadEnvFile(path.join(rootDir, '.env'));
+for (const [k, v] of Object.entries(envFile)) {
   if (!process.env[k]) {
     process.env[k] = v;
   }
+}
+const envLocal = loadEnvFile(path.join(rootDir, '.env.local'));
+for (const [k, v] of Object.entries(envLocal)) {
+  process.env[k] = v; // .env.local overrides .env
 }
 
 const supabaseUrl =

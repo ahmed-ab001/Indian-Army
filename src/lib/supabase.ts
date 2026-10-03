@@ -1,25 +1,30 @@
+/// <reference types="vite/client" />
 import { createClient } from '@supabase/supabase-js';
-import type { Database } from '../types/database';
 
-// Support Next.js (NEXT_PUBLIC_), Vite (VITE_ / import.meta.env), or Node.js / Server environments
+// Safe helper to read environment variables across Vite, Next.js, or Node.js
+const getEnvVar = (key: string): string => {
+  if (typeof import.meta !== 'undefined' && (import.meta as any).env && (import.meta as any).env[key]) {
+    return (import.meta as any).env[key];
+  }
+  if (typeof process !== 'undefined' && process.env && (process.env as any)[key]) {
+    return (process.env as any)[key] || '';
+  }
+  return '';
+};
+
 const supabaseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_URL ||
-  process.env.VITE_SUPABASE_URL ||
-  process.env.SUPABASE_URL ||
-  (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_SUPABASE_URL) ||
-  '';
+  getEnvVar('NEXT_PUBLIC_SUPABASE_URL') ||
+  getEnvVar('VITE_SUPABASE_URL') ||
+  getEnvVar('SUPABASE_URL');
 
 const supabaseAnonKey =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  process.env.VITE_SUPABASE_ANON_KEY ||
-  process.env.SUPABASE_ANON_KEY ||
-  (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_SUPABASE_ANON_KEY) ||
-  '';
+  getEnvVar('NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY') ||
+  getEnvVar('VITE_SUPABASE_PUBLISHABLE_KEY') ||
+  getEnvVar('NEXT_PUBLIC_SUPABASE_ANON_KEY') ||
+  getEnvVar('VITE_SUPABASE_ANON_KEY') ||
+  getEnvVar('SUPABASE_ANON_KEY');
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn(
-    '[Supabase] Warning: Missing Supabase URL or Anon Key. Please configure your .env.local file.'
-  );
-}
-
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co',
+  supabaseAnonKey || 'placeholder-key'
+);
