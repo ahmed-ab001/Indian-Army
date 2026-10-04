@@ -15,6 +15,8 @@ export interface InventoryItem {
   quantity: number;
   unit: string;
   safety_stock: number;
+  lead_time_days?: number;
+  reorder_level?: number;
   last_updated?: string;
   location?: Location; // joined
 }

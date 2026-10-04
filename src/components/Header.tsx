@@ -12,7 +12,8 @@ import {
   Truck,
   CloudSnow,
   AlertTriangle,
-  Brain
+  Brain,
+  Layers
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -45,6 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   const tabs = [
+    { id: 'inventory-intelligence', label: 'Inventory Intelligence (Mod 2)', icon: Layers },
     { id: 'overview', label: 'Tactical Command Map', icon: Shield },
     { id: 'forecasting', label: 'AI Demand Forecasting', icon: Brain },
     { id: 'inventory', label: 'Inventory & Safety Stock', icon: Package },
@@ -147,7 +149,9 @@ export const Header: React.FC<HeaderProps> = ({
         {tabs.map(tab => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
-          const hasAlert = tab.id === 'inventory' && criticalAlertCount > 0;
+          const hasAlert =
+            (tab.id === 'inventory' || tab.id === 'inventory-intelligence') &&
+            criticalAlertCount > 0;
 
           return (
             <button

@@ -9,7 +9,8 @@ import {
   CheckCircle2,
   MapPin,
   RefreshCw,
-  TrendingDown
+  TrendingDown,
+  TrendingUp
 } from 'lucide-react';
 
 interface InventoryViewProps {
@@ -17,13 +18,15 @@ interface InventoryViewProps {
   inventory: InventoryItem[];
   onOpenAddInventoryModal: () => void;
   onOpenAddLocationModal: () => void;
+  onNavigateToIntelligence?: () => void;
 }
 
 export const InventoryView: React.FC<InventoryViewProps> = ({
   locations,
   inventory,
   onOpenAddInventoryModal,
-  onOpenAddLocationModal
+  onOpenAddLocationModal,
+  onNavigateToIntelligence
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLocationFilter, setSelectedLocationFilter] = useState('ALL');
@@ -61,12 +64,21 @@ export const InventoryView: React.FC<InventoryViewProps> = ({
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          {onNavigateToIntelligence && (
+            <button
+              onClick={onNavigateToIntelligence}
+              className="btn-primary"
+              style={{ background: 'linear-gradient(135deg, #eab308, #ca8a04)', color: '#000' }}
+            >
+              <TrendingUp size={16} /> OPEN MODULE 2 INTELLIGENCE
+            </button>
+          )}
           <button onClick={onOpenAddLocationModal} className="btn-secondary">
             <MapPin size={16} /> ADD OPERATING LOCATION
           </button>
-          <button onClick={onOpenAddInventoryModal} className="btn-primary">
-            <Plus size={16} /> UPDATE / ADD INVENTORY STOCK
+          <button onClick={onOpenAddInventoryModal} className="btn-secondary">
+            <Plus size={16} /> UPDATE STOCK
           </button>
         </div>
       </div>

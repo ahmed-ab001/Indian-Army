@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test:supabase": "node scripts/test-supabase.mjs"
+    "test:supabase": "node scripts/test-supabase.mjs",
+    "test:inventory": "node scripts/test-inventory-engine.mjs",
+    "seed:inventory": "node scripts/seed-inventory-demo-data.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.48.0",

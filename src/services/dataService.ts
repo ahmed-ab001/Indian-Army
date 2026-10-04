@@ -8,9 +8,13 @@ import {
   INITIAL_CONSUMPTION
 } from '../data/initialData';
 import { generateSyntheticHistoricalConsumption } from '../data/seedForecastingData';
+import { generate180DaySimulatedConsumption } from '../data/seedInventoryData';
 
-// Memory cache fallback state - pre-populated with 90-day synthetic history for ML forecasting
-const syntheticHistory = generateSyntheticHistoricalConsumption(INITIAL_LOCATIONS);
+// Memory cache fallback state - pre-populated with 180-day synthetic history for ML forecasting & Inventory Intelligence
+const syntheticHistory = [
+  ...generate180DaySimulatedConsumption(INITIAL_LOCATIONS),
+  ...generateSyntheticHistoricalConsumption(INITIAL_LOCATIONS)
+];
 let memoryLocations = [...INITIAL_LOCATIONS];
 let memoryInventory = [...INITIAL_INVENTORY];
 let memoryRoutes = [...INITIAL_ROUTES];
@@ -230,7 +234,10 @@ export const dataService = {
 
   // Reseed local demo dataset
   reseedDemoData(): void {
-    const freshHistory = generateSyntheticHistoricalConsumption(memoryLocations);
+    const freshHistory = [
+      ...generate180DaySimulatedConsumption(memoryLocations),
+      ...generateSyntheticHistoricalConsumption(memoryLocations)
+    ];
     memoryConsumption = [...freshHistory];
   }
 };
