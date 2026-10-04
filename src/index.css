@@ -1,3 +1,5 @@
+@import 'leaflet/dist/leaflet.css';
+
 :root {
   --bg-darker: #060b11;
   --bg-dark: #0a111a;
@@ -97,6 +99,11 @@ body {
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Dark Tactical Leaflet Tile Filter (No API Key Required) */
+.dark-tactical-tiles {
+  filter: invert(100%) hue-rotate(180deg) brightness(92%) contrast(92%);
 }
 
 /* Tactical Pulse Animation */

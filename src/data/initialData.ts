@@ -1,6 +1,8 @@
 import { Location, InventoryItem, ConsumptionRecord, LogisticsRoute, LogisticsMovement } from '../types/schema';
+import { GIS_DEMO_LOCATIONS, GIS_DEMO_ROUTES } from './seedGisData';
 
 export const INITIAL_LOCATIONS: Location[] = [
+  ...GIS_DEMO_LOCATIONS,
   {
     location_id: 'loc-001',
     name: 'Srinagar Command Logistics Center',
@@ -58,6 +60,15 @@ export const INITIAL_LOCATIONS: Location[] = [
 ];
 
 export const INITIAL_INVENTORY: InventoryItem[] = [
+  {
+    inventory_id: 'inv-000',
+    location_id: 'loc-depot-01',
+    supply_type: 'Fuel',
+    quantity: 10000,
+    unit: 'L',
+    safety_stock: 2000,
+    last_updated: new Date().toISOString()
+  },
   {
     inventory_id: 'inv-001',
     location_id: 'loc-002', // Leh HQ
@@ -142,6 +153,7 @@ export const INITIAL_INVENTORY: InventoryItem[] = [
 ];
 
 export const INITIAL_ROUTES: LogisticsRoute[] = [
+  ...GIS_DEMO_ROUTES,
   {
     route_id: 'rt-001',
     source_id: 'loc-001', // Srinagar
@@ -149,6 +161,7 @@ export const INITIAL_ROUTES: LogisticsRoute[] = [
     distance_km: 204,
     travel_time_hr: 7.5,
     terrain: 'Zoji La Mountain Pass (11,575 ft)',
+    road_condition: 'FAIR',
     weather_status: 'Heavy Snowfall',
     status: 'Restricted',
     created_at: new Date(Date.now() - 10 * 86400000).toISOString()
@@ -160,6 +173,7 @@ export const INITIAL_ROUTES: LogisticsRoute[] = [
     distance_km: 217,
     travel_time_hr: 6.0,
     terrain: 'Fotula Pass & Namkila Pass',
+    road_condition: 'GOOD',
     weather_status: 'Clear',
     status: 'Open',
     created_at: new Date(Date.now() - 10 * 86400000).toISOString()
@@ -171,6 +185,7 @@ export const INITIAL_ROUTES: LogisticsRoute[] = [
     distance_km: 212,
     travel_time_hr: 8.0,
     terrain: 'Khardung La Pass (17,982 ft)',
+    road_condition: 'POOR',
     weather_status: 'Blizzard Warning',
     status: 'Blocked',
     created_at: new Date(Date.now() - 8 * 86400000).toISOString()
@@ -182,6 +197,7 @@ export const INITIAL_ROUTES: LogisticsRoute[] = [
     distance_km: 255,
     travel_time_hr: 11.5,
     terrain: 'DS-DBO Highway (Shyok River Road)',
+    road_condition: 'FAIR',
     weather_status: 'Landslide Risk',
     status: 'Restricted',
     created_at: new Date(Date.now() - 5 * 86400000).toISOString()
@@ -193,6 +209,7 @@ export const INITIAL_ROUTES: LogisticsRoute[] = [
     distance_km: 421,
     travel_time_hr: 13.5,
     terrain: 'NH-1 National Highway',
+    road_condition: 'GOOD',
     weather_status: 'Clear',
     status: 'Open',
     created_at: new Date(Date.now() - 12 * 86400000).toISOString()

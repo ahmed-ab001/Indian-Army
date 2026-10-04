@@ -8,6 +8,7 @@ import { RoutesView } from './components/RoutesView';
 import { SupabaseSyncView } from './components/SupabaseSyncView';
 import { DemandForecastingView } from './components/DemandForecastingView';
 import { InventoryIntelligenceView } from './components/InventoryIntelligenceView';
+import { GisLogisticsView } from './components/GisLogisticsView';
 import {
   AddLocationModal,
   AddInventoryModal,
@@ -24,7 +25,7 @@ import {
 } from './types/schema';
 
 export const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('inventory-intelligence');
+  const [activeTab, setActiveTab] = useState<string>('gis-logistics');
   const [isSupabaseConnected, setIsSupabaseConnected] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -174,6 +175,17 @@ export const App: React.FC = () => {
 
       {/* Main Content Area */}
       <main style={{ flex: 1, padding: '0 24px 32px 24px', maxWidth: '1600px', width: '100%', margin: '0 auto' }}>
+        {activeTab === 'gis-logistics' && (
+          <GisLogisticsView
+            locations={locations}
+            routes={routes}
+            onAutoDispatch={(sourceId, destId, supplyType, quantity) => {
+              setDispatchPrefill({ destId, supplyType, quantity });
+              setIsDispatchConvoyOpen(true);
+            }}
+          />
+        )}
+
         {activeTab === 'inventory-intelligence' && (
           <InventoryIntelligenceView
             locations={locations}

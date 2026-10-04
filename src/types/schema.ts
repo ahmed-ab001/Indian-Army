@@ -39,11 +39,24 @@ export interface LogisticsRoute {
   distance_km: number;
   travel_time_hr: number;
   terrain: string;
+  road_condition?: 'GOOD' | 'FAIR' | 'POOR';
   weather_status: 'Clear' | 'Heavy Snowfall' | 'Blizzard Warning' | 'Landslide Risk' | 'Foggy';
   status: 'Open' | 'Restricted' | 'Blocked' | 'Priority Only';
   created_at?: string;
   source_location?: Location;
   destination_location?: Location;
+}
+
+export interface Vehicle {
+  vehicle_id: string;
+  name: string;
+  vehicle_type: string;
+  capacity: number;
+  capacity_unit: string;
+  availability_status: 'AVAILABLE' | 'IN_TRANSIT' | 'MAINTENANCE';
+  current_location_id: string;
+  created_at?: string;
+  current_location?: Location;
 }
 
 export interface LogisticsMovement {

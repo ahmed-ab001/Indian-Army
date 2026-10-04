@@ -58,14 +58,28 @@ CREATE TABLE IF NOT EXISTS public.predictive_alerts (
     created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- 5. Transport Fleet Vehicles (Module 3 GIS Logistics)
+CREATE TABLE IF NOT EXISTS public.vehicles (
+    vehicle_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    vehicle_type TEXT NOT NULL,
+    capacity NUMERIC NOT NULL CHECK (capacity > 0),
+    capacity_unit TEXT NOT NULL,
+    availability_status TEXT NOT NULL DEFAULT 'AVAILABLE',
+    current_location_id UUID REFERENCES public.locations(location_id),
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
 -- Enable Row Level Security (RLS)
 ALTER TABLE public.supply_bases ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.inventory_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.convoys ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.predictive_alerts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.vehicles ENABLE ROW LEVEL SECURITY;
 
 -- Default Policies: Allow read access for authenticated and anonymous client read (or customize per your requirements)
 CREATE POLICY "Allow public read supply_bases" ON public.supply_bases FOR SELECT USING (true);
 CREATE POLICY "Allow public read inventory_items" ON public.inventory_items FOR SELECT USING (true);
 CREATE POLICY "Allow public read convoys" ON public.convoys FOR SELECT USING (true);
 CREATE POLICY "Allow public read predictive_alerts" ON public.predictive_alerts FOR SELECT USING (true);
+CREATE POLICY "Allow public read vehicles" ON public.vehicles FOR SELECT USING (true);

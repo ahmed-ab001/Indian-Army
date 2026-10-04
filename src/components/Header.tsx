@@ -13,7 +13,8 @@ import {
   CloudSnow,
   AlertTriangle,
   Brain,
-  Layers
+  Layers,
+  Navigation
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -46,6 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   const tabs = [
+    { id: 'gis-logistics', label: 'GIS Route Planning (Mod 3)', icon: Navigation },
     { id: 'inventory-intelligence', label: 'Inventory Intelligence (Mod 2)', icon: Layers },
     { id: 'overview', label: 'Tactical Command Map', icon: Shield },
     { id: 'forecasting', label: 'AI Demand Forecasting', icon: Brain },

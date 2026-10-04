@@ -40,12 +40,25 @@ CREATE TABLE public.routes (
   distance_km numeric NOT NULL CHECK (distance_km > 0::numeric),
   travel_time_hr numeric NOT NULL CHECK (travel_time_hr > 0::numeric),
   terrain character varying,
+  road_condition character varying DEFAULT 'GOOD'::character varying,
   weather_status character varying DEFAULT 'Clear'::character varying,
   status character varying DEFAULT 'Open'::character varying,
   created_at timestamp with time zone DEFAULT now(),
   CONSTRAINT routes_pkey PRIMARY KEY (route_id),
   CONSTRAINT fk_route_source FOREIGN KEY (source_id) REFERENCES public.locations(location_id),
   CONSTRAINT fk_route_destination FOREIGN KEY (destination_id) REFERENCES public.locations(location_id)
+);
+CREATE TABLE public.vehicles (
+  vehicle_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  name character varying NOT NULL,
+  vehicle_type character varying NOT NULL,
+  capacity numeric NOT NULL CHECK (capacity > 0::numeric),
+  capacity_unit character varying NOT NULL,
+  availability_status character varying NOT NULL DEFAULT 'AVAILABLE'::character varying,
+  current_location_id uuid,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT vehicles_pkey PRIMARY KEY (vehicle_id),
+  CONSTRAINT fk_vehicle_location FOREIGN KEY (current_location_id) REFERENCES public.locations(location_id)
 );
 CREATE TABLE public.logistics (
   logistics_id uuid NOT NULL DEFAULT gen_random_uuid(),

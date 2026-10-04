@@ -9,10 +9,13 @@
     "preview": "vite preview",
     "test:supabase": "node scripts/test-supabase.mjs",
     "test:inventory": "node scripts/test-inventory-engine.mjs",
+    "test:gis": "node scripts/test-gis-route-engine.mjs",
     "seed:inventory": "node scripts/seed-inventory-demo-data.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.48.0",
+    "@types/leaflet": "^1.9.22",
+    "leaflet": "^1.9.4",
     "lucide-react": "^0.344.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
